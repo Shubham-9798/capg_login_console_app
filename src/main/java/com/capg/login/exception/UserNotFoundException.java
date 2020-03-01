@@ -7,12 +7,12 @@ package com.capg.login.exception;
  * @author Kap_cool
  *
  */
-public class UserNotFountException extends RuntimeException{
+public class UserNotFoundException extends RuntimeException{
 
 	/**
 	 * 
 	 */
-	public UserNotFountException(String msg) {
+	public UserNotFoundException(String msg) {
 		// TODO Auto-generated constructor stub
 		super(msg);
 	}
