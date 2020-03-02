@@ -9,6 +9,8 @@ import com.capg.exception.*;
 import com.capg.utility.Validate;
 
 public class UiLogin extends AuthenticationDaoImpl {
+	
+	// provide your own store that contain username, password
 	Map<String, String> store = new HashMap();
 	
 	public UiLogin() {
