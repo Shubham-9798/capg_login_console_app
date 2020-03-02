@@ -8,12 +8,12 @@ import java.util.Scanner;
 import com.capg.exception.*;
 import com.capg.utility.Validate;
 
-public class UiLogin extends AuthenticationDaoImpl {
+public class Demo extends AuthenticationDaoImpl {
 	
 	// provide your own store that contain username, password
 	Map<String, String> store = new HashMap();
 	
-	public UiLogin() {
+	public Demo() {
 	  store.put("shubham", "shubham");
 	  store.put("shreya", "shreya");
 	  store.put("pupta", "pupta");
@@ -21,7 +21,7 @@ public class UiLogin extends AuthenticationDaoImpl {
 	}
 	
 	public static void main(String ...args) {
-		new UiLogin().exe(new Scanner(System.in));
+		new Demo().exe(new Scanner(System.in));
 	}	
 	
 	public void exe(Scanner in) {
