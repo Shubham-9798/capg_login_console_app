@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.capg.login.exception;
+package com.capg.exception;
 
 /**
  * @author Kap_cool
