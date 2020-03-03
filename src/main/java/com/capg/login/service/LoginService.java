@@ -8,28 +8,29 @@ import java.util.Map;
 import java.util.regex.*;
 
 public class LoginService implements ILoginService {
-	private UserDaoImple user;
+//	private UserDaoImple user;
 	private Validate validate;
 	private static final String regex = "^[a-z0-9_-[*]]{6,15}$";
 	
-	public LoginService(UserDaoImple user) {
-		this.user = user;
+	public LoginService() {
 		this.validate = new Validate();
 	}
-	
-	public boolean findByUser(String str) {
-		if(user.findByUser(str)) {
+
+	public boolean findByUser(Map<String, Object> store, String str) {
+		if(store.containsKey(str)) {
 			return true;
 		}
 		return false;
 	}
 	
 	@Override
-	public boolean addUser(Map<String, String> store, User user)  {
+	public String addUser(Map<String, Object> store, User user)  {
 		String username = user.getUsername();
 		String password = user.getPassword();
+//		System.out.println(username + " "+ password);
 		
 		if(username == null || password == null) {
+//			return "FFF";
 			throw new NullPointerException("either username or password is null");
 		}
 		else if(username.length() == 0 || password.length() == 0) {
@@ -39,20 +40,21 @@ public class LoginService implements ILoginService {
 			throw new ShorterLengthException("username or password length is less then minimum length six");
 		} else {
 			if(validate.checkValidation(password)) {
-				this.user.addUser(username, new User(username, password));
-				store.put(username, validate.cypher(password));
-				return true;
+
+				user.setPassword(validate.cypher(password));
+				store.put(username, user);
+				return "Successfully Added user";
 			} else {
-				System.out.println("min length should be six and max is 15, only include -, _ , *");
-				return false;
+//				System.out.println("min length should be six and max is 15, only include -, _ , *");
+				return "min length should be six and max is 15, only include -, _ , *";
 			}
 
 		}
-		
+	
 	}
 	
 	@Override
-	public boolean addUser(Map<String, String> store, String username, String password)  {
+	public String addUser(Map<String, Object> store, String username, String password)  {
 		
 		if(username == null || password == null) {
 			throw new NullPointerException("either username or password is null");
@@ -64,12 +66,12 @@ public class LoginService implements ILoginService {
 			throw new ShorterLengthException("username or password length is less then minimum length six");
 		} else {
 			if(validate.checkValidation(password)) {
-				this.user.addUser(username, new User(username, password));
+
 				store.put(username, validate.cypher(password));
-				return true;
+				return "Successfully Added user";
 			} else {
-				System.out.println("min length should be six and max is 15, only include -, _ , *");
-				return false;
+//				System.out.println("min length should be six and max is 15, only include -, _ , *");
+				return "min length should be six and max is 15, only include -, _ , *";
 			}
 
 		}
@@ -77,7 +79,7 @@ public class LoginService implements ILoginService {
 	}
 	
 	
-	public boolean removeUser(Map<String, String> store, String username) {
+	public boolean removeUser(Map<String, Object> store, String username) {
 	    if(!store.containsKey(username)) {
 	    	throw new UserNotFoundException("user not exist");
 
@@ -90,7 +92,7 @@ public class LoginService implements ILoginService {
 
 
 	@Override
-	public boolean forgetPassword(Map<String, String> store, String username, String password) {
+	public boolean forgetPassword(Map<String, Object> store, String username, String password) {
 		// TODO Auto-generated method stub
 		if(validate.checkValidation(password)) {
 	    	store.replace(username, validate.cypher(password));

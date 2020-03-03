@@ -15,15 +15,19 @@ import com.capg.utility.Validate;
 public class Demo extends AuthenticationDaoImpl {
 	
 	// provide your own store that contain username, password
-	Map<String, String> store = new HashMap();
+	Map<String, Object> store = new HashMap();
 	private ILoginService service;
 
 	
 	public Demo() {
-	 service = new LoginService(new UserDaoImple());
-	 User u1 = new User("shreya", "shreya");
+	 service = new LoginService();
+	 User u1 = new User("shubham", "shubham", "admin");
+	 User u2 = new User("shubham1", "shubham1"); 
 	 
-	 service.addUser(store, u1);
+	 out.println(service.addUser(store, u1));
+	 out.println(service.addUser(store, u2));
+	 out.println(service.addUser(store, "shubham3", "shubham"));
+	 
 	}
 	
 	public static void main(String ...args) {
@@ -50,20 +54,12 @@ public class Demo extends AuthenticationDaoImpl {
 				throw new IllegalArgumentException("either username or password is empty");
 			}
 			else {
-				if(this.login(username, password)) {
-					System.out.println("successfully loged in");
-				}
-				else {
-					System.out.println("invalid username and password");
-				}
-			}
+					System.out.println(this.login(username, password));
+			  }
 		}
 		catch (UserNotFoundException e) {
 			out.println(e);
 		} 
-		catch (ShorterLengthException e) {
-			out.println(e);
-		}
 		catch (NullPointerException e) {
 			out.println(e);
 		}
@@ -71,7 +67,7 @@ public class Demo extends AuthenticationDaoImpl {
 			out.println(e);
 		}
 		
-		// forgetPassword("shreya");
+		 forgetPassword(this.getLoginUser(), "newpassword");
 		System.out.println(this.getLoginUser());
 		this.logout(username);
 		System.out.println(this.getLoginUser());
@@ -84,13 +80,14 @@ public class Demo extends AuthenticationDaoImpl {
 		return this.store;
 	}
 	
-	public void forgetPassword(String user) {
+	public void forgetPassword(String user, String newpassword) {
 		
-	    if(service.findByUser(user)) {
-	    	String newpassword = "if8jij9";
+	    if(service.findByUser(store, user)) {
 	    	if(service.forgetPassword(store, user, newpassword)) {
 	    		out.println("user password update");
 	    	} 
+	    } else {
+	    	    out.println("user not exist");
 	    }
 	}
 
