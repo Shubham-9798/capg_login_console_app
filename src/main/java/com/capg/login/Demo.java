@@ -53,6 +53,9 @@ public class Demo extends AuthenticationDaoImpl {
 				if(this.login(username, password)) {
 					System.out.println("successfully loged in");
 				}
+				else {
+					System.out.println("invalid username and password");
+				}
 			}
 		}
 		catch (UserNotFoundException e) {
@@ -69,6 +72,9 @@ public class Demo extends AuthenticationDaoImpl {
 		}
 		
 		// forgetPassword("shreya");
+		System.out.println(this.getLoginUser());
+		this.logout(username);
+		System.out.println(this.getLoginUser());
 		
 	}
 
