@@ -1,4 +1,4 @@
-package com.capg.exception;
+package com.capg.login.exception;
 
 public class ShorterLengthException extends RuntimeException{
 
