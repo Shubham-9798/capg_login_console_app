@@ -26,13 +26,13 @@ public abstract class AuthenticationDaoImpl<ID, P>
          {
         	System.out.print("instance of string");
         	password = store.get(idArg);
-            c = v.cypher((String) passwordArg);
+            c = v.cipher((String) passwordArg);
          }else {
         	 System.out.println("instance of user");
         	 User u = (User)store.get(idArg);
         	 password = (P) u.getPassword();
         	 type = u.getType();
-        	 c = v.cypher((String) passwordArg);
+        	 c = v.cipher((String) passwordArg);
          }
         
         if (c.equals(password)) {
@@ -47,8 +47,14 @@ public abstract class AuthenticationDaoImpl<ID, P>
     }
 
     @Override
-    public void logout(ID id) {
-        loginStore.remove(id);
+    public String logout(ID id) {
+    	for(ID loginuser: loginStore) {
+    		if(loginuser == id) {
+    			loginStore.remove(id);
+    			return "login user removed";
+    		} 
+    	}
+			return "user is not login";
     }
     
     @Override

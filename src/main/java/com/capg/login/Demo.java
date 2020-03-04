@@ -21,6 +21,7 @@ public class Demo extends AuthenticationDaoImpl {
 	
 	public Demo() {
 	 service = new LoginService();
+	 // creating object
 	 User u1 = new User("shubham", "shubham", "admin");
 	 User u2 = new User("shubham1", "shubham1"); 
 	 
@@ -44,31 +45,10 @@ public class Demo extends AuthenticationDaoImpl {
 		System.out.println("Enter password");
 		password = in.next();
 		
+		loginCheck(username, password);
 		
-		try {
-
-			if(username == null || password == null) {
-				throw new NullPointerException("either username or password is null");
-			}
-			else if(username.length() == 0 || password.length() == 0) {
-				throw new IllegalArgumentException("either username or password is empty");
-			}
-			else {
-					System.out.println(this.login(username, password));
-			  }
-		}
-		catch (UserNotFoundException e) {
-			out.println(e);
-		} 
-		catch (NullPointerException e) {
-			out.println(e);
-		}
-		catch (IllegalArgumentException e) {
-			out.println(e);
-		}
+		forgetPassword(username, "newpassword");
 		
-		 forgetPassword(this.getLoginUser(), "newpassword");
-		System.out.println(this.getLoginUser());
 		this.logout(username);
 		System.out.println(this.getLoginUser());
 		
@@ -78,6 +58,33 @@ public class Demo extends AuthenticationDaoImpl {
 	public Map store() {
 		// TODO Auto-generated method stub
 		return this.store;
+	}
+	
+	public String loginCheck(String username, String password) {
+		try {
+
+			if(username == null || password == null) {
+				throw new NullPointerException("either username or password is null");
+			}
+			else if(username.length() == 0 || password.length() == 0) {
+				throw new IllegalArgumentException("either username or password is empty");
+			}
+			else {
+					return this.login(username, password);
+			  }
+		}
+		catch (UserNotFoundException e) {
+			// out.println(e);
+			return e.getMessage();
+		} 
+		catch (NullPointerException e) {
+			// out.println(e);
+			return e.getMessage();
+		}
+		catch (IllegalArgumentException e) {
+			// out.println(e);
+			return e.getMessage();
+		}
 	}
 	
 	public void forgetPassword(String user, String newpassword) {
@@ -91,4 +98,5 @@ public class Demo extends AuthenticationDaoImpl {
 	    }
 	}
 
+	
 }

@@ -27,10 +27,8 @@ public class LoginService implements ILoginService {
 	public String addUser(Map<String, Object> store, User user)  {
 		String username = user.getUsername();
 		String password = user.getPassword();
-//		System.out.println(username + " "+ password);
 		
 		if(username == null || password == null) {
-//			return "FFF";
 			throw new NullPointerException("either username or password is null");
 		}
 		else if(username.length() == 0 || password.length() == 0) {
@@ -41,11 +39,10 @@ public class LoginService implements ILoginService {
 		} else {
 			if(validate.checkValidation(password)) {
 
-				user.setPassword(validate.cypher(password));
+				user.setPassword(validate.cipher(password));
 				store.put(username, user);
 				return "Successfully Added user";
 			} else {
-//				System.out.println("min length should be six and max is 15, only include -, _ , *");
 				return "min length should be six and max is 15, only include -, _ , *";
 			}
 
@@ -67,10 +64,9 @@ public class LoginService implements ILoginService {
 		} else {
 			if(validate.checkValidation(password)) {
 
-				store.put(username, validate.cypher(password));
+				store.put(username, validate.cipher(password));
 				return "Successfully Added user";
 			} else {
-//				System.out.println("min length should be six and max is 15, only include -, _ , *");
 				return "min length should be six and max is 15, only include -, _ , *";
 			}
 
@@ -82,12 +78,10 @@ public class LoginService implements ILoginService {
 	public boolean removeUser(Map<String, Object> store, String username) {
 	    if(!store.containsKey(username)) {
 	    	throw new UserNotFoundException("user not exist");
-
 	    } else {
 	    	store.remove(username);
 	    	return true;
 	    }
-//		return user.removeUser(username);
 	}
 
 
@@ -95,14 +89,14 @@ public class LoginService implements ILoginService {
 	public boolean forgetPassword(Map<String, Object> store, String username, String password) {
 		// TODO Auto-generated method stub
 		if(validate.checkValidation(password)) {
-	    	store.replace(username, validate.cypher(password));
+	    	store.replace(username, validate.cipher(password));
 	    	return true;
 		} 
 		else
 		{
 			System.out.println("min length should be six and max is 15, only include -, _ , *");
 			return false;
-			}
+		}
 		
 	}
 }

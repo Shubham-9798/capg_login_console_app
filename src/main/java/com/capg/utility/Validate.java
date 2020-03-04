@@ -12,7 +12,7 @@ public class Validate {
 		return matches;
 	}
 	
-	public String cypher(String input) {
+	public String cipher(String input) {
 	     try { 
 	            // Static getInstance method is called with hashing MD5 
 	            MessageDigest md = MessageDigest.getInstance("MD5"); 
