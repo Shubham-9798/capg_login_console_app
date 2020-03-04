@@ -1,4 +1,4 @@
-# capg_login_console_app :octocat
+# capg_login_console_app :octocat:
 
 In order to use login, firstly extends AuthenticationDaoImpl to UiMainClass ```UiMainClass extends AuthenticationDaoImpl```  to use login, validation, logout service, encrytion service.
 
